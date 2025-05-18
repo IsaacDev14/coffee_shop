@@ -1,4 +1,5 @@
 from order import Order
+from coffee import Coffee
 
 class Customer:
     def __init__(self, name):
@@ -18,10 +19,10 @@ class Customer:
 
     def orders(self):
         return [order for order in Order._all_orders if order.customer == self]
-    
+
     def coffees(self):
         return list(set(order.coffee for order in self.orders()))
-    
+
     def create_order(self, coffee, price):
         if not isinstance(coffee, Coffee):
             raise ValueError("Coffee must be a Coffee instance")
