@@ -1,3 +1,5 @@
+from order import Order
+
 class Customer:
     def __init__(self, name):
         self.name = name  # Use property setter for validation
@@ -13,3 +15,9 @@ class Customer:
         if not 1 <= len(value) <= 15:
             raise ValueError("Name must be between 1 and 15 characters")
         self._name = value
+
+    def orders(self):
+        return [order for order in Order._all_orders if order.customer == self]
+    
+    def coffees(self):
+        return list(set(order.coffee for order in self.orders()))
