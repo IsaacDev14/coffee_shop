@@ -1,10 +1,10 @@
-from customer import Customer
-from coffee import Coffee
-
 class Order:
     _all_orders = []  # Single source of truth for all orders
 
     def __init__(self, customer, coffee, price):
+        from customer import Customer  # local import
+        from coffee import Coffee
+
         self.customer = customer
         self.coffee = coffee
         self.price = price
@@ -16,6 +16,7 @@ class Order:
 
     @customer.setter
     def customer(self, value):
+        from customer import Customer  # local import
         if not isinstance(value, Customer):
             raise ValueError("Customer must be a Customer instance")
         self._customer = value
@@ -26,6 +27,7 @@ class Order:
 
     @coffee.setter
     def coffee(self, value):
+        from coffee import Coffee  # local import
         if not isinstance(value, Coffee):
             raise ValueError("Coffee must be a Coffee instance")
         self._coffee = value

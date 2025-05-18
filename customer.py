@@ -1,6 +1,3 @@
-from order import Order
-from coffee import Coffee
-
 class Customer:
     def __init__(self, name):
         self.name = name  # Use property setter for validation
@@ -18,21 +15,24 @@ class Customer:
         self._name = value
 
     def orders(self):
+        from order import Order  # local import to break circular import
         return [order for order in Order._all_orders if order.customer == self]
 
     def coffees(self):
         return list(set(order.coffee for order in self.orders()))
 
     def create_order(self, coffee, price):
+        from order import Order  # local import
+        from coffee import Coffee
         if not isinstance(coffee, Coffee):
             raise ValueError("Coffee must be a Coffee instance")
         return Order(self, coffee, price)
-    
+
     @classmethod
     def most_aficionado(cls, coffee):
+        from coffee import Coffee
         if not isinstance(coffee, Coffee):
             raise ValueError("Coffee must be a Coffee instance")
-        # Dictionary to track total spent by each customer
         spent_by_customer = {}
         for order in coffee.orders():
             spent_by_customer[order.customer] = (
