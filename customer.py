@@ -21,3 +21,8 @@ class Customer:
     
     def coffees(self):
         return list(set(order.coffee for order in self.orders()))
+    
+    def create_order(self, coffee, price):
+        if not isinstance(coffee, Coffee):
+            raise ValueError("Coffee must be a Coffee instance")
+        return Order(self, coffee, price)
