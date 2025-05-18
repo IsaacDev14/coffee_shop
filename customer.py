@@ -27,3 +27,17 @@ class Customer:
         if not isinstance(coffee, Coffee):
             raise ValueError("Coffee must be a Coffee instance")
         return Order(self, coffee, price)
+    
+    @classmethod
+    def most_aficionado(cls, coffee):
+        if not isinstance(coffee, Coffee):
+            raise ValueError("Coffee must be a Coffee instance")
+        # Dictionary to track total spent by each customer
+        spent_by_customer = {}
+        for order in coffee.orders():
+            spent_by_customer[order.customer] = (
+                spent_by_customer.get(order.customer, 0) + order.price
+            )
+        if not spent_by_customer:
+            return None
+        return max(spent_by_customer, key=spent_by_customer.get)
