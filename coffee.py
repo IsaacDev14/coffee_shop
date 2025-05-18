@@ -1,6 +1,6 @@
 class Coffee:
     def __init__(self, name):
-        self.name = #use property setter for validation
+        self.name = name #use property setter for validation
 
         @property
         def name(self):
